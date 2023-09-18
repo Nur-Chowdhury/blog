@@ -1,15 +1,20 @@
-import { ChakraProvider } from '@chakra-ui/react';
+import { ChakraProvider, Flex } from '@chakra-ui/react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import Nav1 from './components/nav1';
+import BlogsScreen from './screens/blogsScreen';
 
 function App() {
   return (
     <ChakraProvider>
       <Router>
         <Nav1 />
-        <Routes>
-          <Route></Route>
-        </Routes>
+        <main>
+          <Flex w={'80%'}>
+            <Routes>
+              <Route path='/blogs' element={<BlogsScreen />}></Route>
+            </Routes>
+          </Flex>
+        </main>
       </Router>
     </ChakraProvider>
   );
