@@ -74,7 +74,7 @@ const BlogCard = ({ blog }) => {
           pt={2}
           cursor={"pointer"}
         >
-          <Button colorScheme="green">Read More</Button>
+          <Button colorScheme={"gray"}>Read More</Button>
         </Link>
       </Center>
     </Stack>
