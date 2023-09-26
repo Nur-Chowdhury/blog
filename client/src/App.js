@@ -1,18 +1,24 @@
-import { ChakraProvider, Flex } from '@chakra-ui/react';
+import { Box, ChakraProvider, Flex } from '@chakra-ui/react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
-import Nav1 from './components/nav1';
-import BlogsScreen from './screens/blogsScreen';
+import Navbar from './components/Navbar';
+import BlogScreen from './screens/BlogScreen';
+import BlogsScreens from './screens/BlogsScreens';
+import LoginScreen from './screens/LoginScreen';
 
 function App() {
   return (
     <ChakraProvider>
       <Router>
-        <Nav1 />
+        <Navbar />
         <main>
-          <Flex w={'80%'}>
+          <Box maxWidth={"80%"}>
             <Routes>
-              <Route path='/blogs' element={<BlogsScreen />}></Route>
+              <Route path='/blogs' element={<BlogsScreens />}></Route>
+              <Route path='/blogs/:id' element={<BlogScreen />}></Route>
             </Routes>
+          </Box>
+          <Flex justify={'center'}>
+            <Routes><Route path='/@dmin-10gin' element={<LoginScreen />}></Route></Routes>
           </Flex>
         </main>
       </Router>

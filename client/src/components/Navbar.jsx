@@ -38,7 +38,7 @@ const NavLink = ({ path, children }) => (
   </Link>
 );
 
-const Nav1 = () => {
+const Navbar = () => {
   const { isOpen, onClose, onOpen } = useDisclosure();
   const { colorMode, toggleColorMode } = useColorMode();
   return (
@@ -122,4 +122,4 @@ const Nav1 = () => {
   );
 };
 
-export default Nav1;
+export default Navbar;

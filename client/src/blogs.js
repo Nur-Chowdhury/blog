@@ -6,7 +6,7 @@ export const blogs = [
     description:
       "Introducing Samsung Galaxy Z Flip4. Fold it, flip it, stand it. Capture photos and videos hands-free with a camera designed to stand on its own with revolutionary folding glass or get that quick selfie when folded for moments that can't wait. ",
     brand: 'Apple',
-    category: ['Electronics'],
+    category: ['Electronics', 'abcd', 'efgh', 'ijkl', 'mnop', 'qrst', 'uvwx', 'yx'],
     price: 599.99,
     rating: 5,
     numReviews: 1,
