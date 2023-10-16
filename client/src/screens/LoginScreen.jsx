@@ -19,35 +19,31 @@ import { useLocation, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import PasswordTextField from "../components/PasswordTextField";
 import TextField from "../components/Textfield";
-import { login } from "../redux/actions/adminActions";
+import { login } from "../redux/actions/userActions";
 
 const LoginScreen = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
-  const redirect = "/";
+  const redirect = "/admin";
   const toast = useToast();
 
-  const admin = useSelector((state) => state.admin);
-  const { loading, error, adminInfo } = admin;
+  const user = useSelector((state) => state.user);
+  const { loading, error, userInfo } = user;
 
   const headingBr = useBreakpointValue({ base: "xs", md: "sm" });
   const boxBr = useBreakpointValue({ base: "transparant", md: "bg-surface" });
 
   useEffect(() => {
-    if (adminInfo) {
-      if (location.state?.from) {
-        navigate(location.state.from);
-      } else {
-        navigate(redirect);
-      }
+    if (userInfo) {
+      navigate(redirect);
       toast({
         description: "Login Successful",
         status: "success",
         isClosable: true,
       });
     }
-  }, [adminInfo, redirect, error, navigate, location.state, toast]);
+  }, [userInfo, redirect, error, navigate, location.state, toast]);
 
   return (
     <Formik

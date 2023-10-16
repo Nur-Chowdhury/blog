@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { setBlog, setBlogs, setError, setLoading } from '../slices/blogs.js';
+import { resetError, setBlog, setBlogs, setError, setLoading } from '../slices/blogs.js';
 
 export const getBlogs = () => async (dispatch) => {
     dispatch(setLoading(true));
@@ -37,3 +37,7 @@ export const getBlog = (id) => async (dispatch) => {
       );
   }
 }
+
+export const resetBlogError = () => async (dispatch) => {
+    dispatch(resetError());
+};

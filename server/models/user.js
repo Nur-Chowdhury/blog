@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import mongoose from 'mongoose';
 
-const adminSchema = mongoose.Schema({ 
+const userSchema = mongoose.Schema({ 
     name: {
         type: String,
         required: true,
@@ -23,11 +23,11 @@ const adminSchema = mongoose.Schema({
     }
 }, {timestamps: true}) 
 
-adminSchema.methods.matchPasswords = async function(enteredPassword){
+userSchema.methods.matchPasswords = async function(enteredPassword){
     return await bcrypt.compare(enteredPassword, this.password);
 }
 
-adminSchema.pre('save', async function (next) {
+userSchema.pre('save', async function (next) {
     if(!this.isModified('password')) {
         next();
     }
@@ -36,6 +36,6 @@ adminSchema.pre('save', async function (next) {
     this.password = await bcrypt.hash(this.password, salt);
 })
 
-const Admin = mongoose.model('admin', adminSchema)
+const User = mongoose.model('User', userSchema)
 
-export default Admin;
+export default User;

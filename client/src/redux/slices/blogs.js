@@ -5,7 +5,8 @@ export const initialState = {
   error: null,
   blogs: [],
   blog: null,
-};
+  blogUpdate: false,
+}; 
 
 export const blogSlice = createSlice({
     name: 'Blogs',
@@ -28,10 +29,20 @@ export const blogSlice = createSlice({
             state.error = payload;
             state.loading = false;
         },
+        setBlogUpdateFlag: (state) => {
+            state.blogUpdate = true;
+            state.loading = false;
+        },
+        resetError: (state) => {
+            state.error = null;
+            state.reviewSend = false;
+            state.productUpdate = false;
+            state.reviewRemoval = false;
+        },
     },
-})
+}) 
 
-export const {setLoading, setError, setBlogs, setBlog} = blogSlice.actions;
+export const {setLoading, setError, resetError, setBlogs, setBlog, setBlogUpdateFlag} = blogSlice.actions;
 export default blogSlice.reducer;
 
 export const blogsSelector = (state) => state.blogs;
