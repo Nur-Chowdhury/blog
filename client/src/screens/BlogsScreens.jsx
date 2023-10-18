@@ -45,7 +45,7 @@ const BlogsScreens = () => {
       ) : (
         blogs.map((blog) => (
           <WrapItem key={blog._id}>
-            <Center w={"400px"} h={"700px"}>
+            <Center h={"500px"}>
               <BlogCard blog={blog} />
             </Center>
           </WrapItem>

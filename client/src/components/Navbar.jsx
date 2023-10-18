@@ -43,7 +43,10 @@ const Navbar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   return (
     <Box>
-      <Box bg={useColorModeValue("gray.100", "gray.900")}>
+      <Box
+        bg={useColorModeValue("gray.300", "gray.900")}
+        color={useColorModeValue("gray.900", "gray.300")}
+      >
         <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
           <IconButton
             size={"md"}

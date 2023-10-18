@@ -21,8 +21,8 @@ const BlogCard = ({ blog }) => {
       p={2}
       spacing={3}
       bg={useColorModeValue("white", "gray.800")}
-      minW={"400px"}
-      h={"700px"}
+      w={"300px"}
+      h={"100%"}
       borderWidth={"1px"}
       rounded={"lg"}
       shadow={"lg"}
@@ -32,12 +32,18 @@ const BlogCard = ({ blog }) => {
         <Circle
           size={"10px"}
           position={"absolute"}
-          top={2}
-          right={2}
+          top={3}
+          right={3}
           bg={"green.400"}
         />
       )}
-      <Image src={blog.image} alt={blog.title} roundedTop={"lg"} h={"50%"} />
+      <Image
+        src={blog.image}
+        alt={blog.title}
+        roundedTop={"lg"}
+        w={"100%"}
+        h={"40%"}
+      />
       <Wrap spacing={"3px"} justify={"center"} minH={"5vh"}>
         {blog.blogIsNew && (
           <WrapItem mt={1} spacing={2} key={"key"}>
@@ -65,7 +71,7 @@ const BlogCard = ({ blog }) => {
         </Link>
       </Flex>
       <Flex mt={1} justifyContent={"space-between"} alignContent={"center"}>
-        <Text noOfLines={[1, 2, 3, 4, 5]} fontSize={"sm"}>
+        <Text noOfLines={[1, 2]} fontSize={"sm"}>
           {blog.description}
         </Text>
       </Flex>
