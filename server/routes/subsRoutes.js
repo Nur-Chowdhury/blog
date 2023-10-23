@@ -1,20 +1,19 @@
 import express from 'express';
 import asyncHandler from 'express-async-handler';
-import Subs from '../models/subs.js';
- 
+import { admin, protectRoute } from '../middleware/authMiddleware.js';
+import Subscription from '../models/subs.js';
 const subsRoutes = express.Router();
 
-
-const registerSubs = asyncHandler(async (req, res) => {
+ 
+const Subscribe = asyncHandler(async (req, res) => {
     const {email} = req.body;
-    const subsExists = await Subs.findOne({email});
+    const subsExists = await Subscription.findOne({email});
 
     if(subsExists){
-        res.status(400);
-        throw new Error('Subscriber already exists.');
+        res.status(400).send('Subscriber Already Exists!');
     }
-
-    const subs= await Subs.create({
+ 
+    const subs= await Subscription.create({
         email,
     })
     if(subs) {
@@ -29,6 +28,24 @@ const registerSubs = asyncHandler(async (req, res) => {
     }
 })
 
-subsRoutes.route('/subs').post(registerSubs);
+const getSubscribers = asyncHandler(async (req, res) => {
+    const subscribers = await Subscription.find({});
+    res.json(subscribers);
+});
+
+const deleteSubscriber = asyncHandler(async (req, res) =>{
+    try {
+        const subscriber = await Subscription.findByIdAndRemove(req.params.id);
+        res.json(subscriber);
+    } catch (error) {
+        res.status(404);
+        throw new Error("Subscriber could not be found!");
+    }
+}); 
+
+ 
+subsRoutes.route('/').post(Subscribe);
+subsRoutes.route('/').get(protectRoute, admin, getSubscribers);
+subsRoutes.route('/:id').delete(protectRoute, admin, deleteSubscriber);
 
 export default subsRoutes;

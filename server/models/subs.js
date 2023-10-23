@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const subscriptionSchema = mongoose.Schema({ 
+const subscriptionSchema = mongoose.Schema({  
     email: {
         type:String,
         required: true,
@@ -8,7 +8,12 @@ const subscriptionSchema = mongoose.Schema({
     },
 }, {timestamps: true}) 
 
+subscriptionSchema.pre('save', async function (next) {
+    if(!this.isModified('email')) {
+        next();
+    }
+})
 
-const Subscription = mongoose.model('subs', subscriptionSchema);
+const Subscription = mongoose.model('Subscriptions', subscriptionSchema);
 
 export default Subscription;

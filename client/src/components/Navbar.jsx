@@ -19,6 +19,7 @@ import SearchBar from "./searchbar";
 
 const links = [
   { linkName: "Blogs", path: "/blogs" },
+  { linkName: "My Gallery", path: "/gallery" },
   { linkName: "About Me", path: "/about_me" },
   { linkName: "Contact Me", path: "/notify" },
 ];
@@ -98,7 +99,7 @@ const Navbar = () => {
           borderBottomColor={useColorModeValue("green.300", "green.700")}
           py={2}
         >
-          <HStack as="nav" spacing={100}>
+          <HStack as="nav" spacing={65}>
             {links.map((link) => (
               <NavLink key={link.linkName} path={link.path}>
                 {link.linkName}

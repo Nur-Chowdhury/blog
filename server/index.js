@@ -6,6 +6,7 @@ import connectToDatabase from './database.js';
 
 //our routes
 import blogRoutes from './routes/blogRoutes.js';
+import subsRoutes from './routes/subsRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 
 
@@ -21,6 +22,7 @@ const port = process.env.PORT || 5000;
 
 app.use('/api/blogs', blogRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/subscribe', subsRoutes);
 
 
 app.listen(port, () => {

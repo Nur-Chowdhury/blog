@@ -6,6 +6,9 @@ export const initialState = {
   blogs: [],
   blog: null,
   blogUpdate: false,
+  commentSend: false,
+  categories: [],
+  blogsByCategory: [],
 }; 
 
 export const blogSlice = createSlice({
@@ -33,16 +36,31 @@ export const blogSlice = createSlice({
             state.blogUpdate = true;
             state.loading = false;
         },
+        commented: (state) => {
+            state.loading = false;
+            state.error = null;
+            state.commentSend = true;
+        },
+        setCatagories: (state, {payload}) => {
+            state.loading = false;
+            state.error = null;
+            state.categories = payload;
+        },
+        setBlogsByCategory: (state, {payload}) => {
+            state.loading = false;
+            state.error = null;
+            state.blogsByCategory = payload;
+        },
         resetError: (state) => {
             state.error = null;
             state.reviewSend = false;
-            state.productUpdate = false;
+            state.blogUpdate = false;
             state.reviewRemoval = false;
         },
     },
 }) 
 
-export const {setLoading, setError, resetError, setBlogs, setBlog, setBlogUpdateFlag} = blogSlice.actions;
+export const {setLoading, setBlogsByCategory, setCatagories, setError, resetError, setBlogs, setBlog, commented, setBlogUpdateFlag} = blogSlice.actions;
 export default blogSlice.reducer;
 
 export const blogsSelector = (state) => state.blogs;

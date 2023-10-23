@@ -19,14 +19,14 @@ import { uploadBlog } from "../redux/actions/adminActions";
 
 const AddNewBlog = () => {
   const dispatch = useDispatch();
-  const [name, setName] = useState("");
+  const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
   const [blogIsNew, setBlogIsNew] = useState(true);
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
 
   const createNewBlog = () => {
-    dispatch(uploadBlog({ name, category, image, blogIsNew, description }));
+    dispatch(uploadBlog({ title, category, image, blogIsNew, description }));
   };
 
   return (
@@ -35,8 +35,8 @@ const AddNewBlog = () => {
         <Text fontSize="sm">Name</Text>
         <Input
           size="sm"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
           placeholder="Name"
         />
       </Td>

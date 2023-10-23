@@ -11,6 +11,7 @@ import {
 import { useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
 import BlogsTab from "../components/BlogsTab";
+import SubscribersTab from "../components/SubscribersTab";
 import UserTabs from "../components/UserTabs";
 
 const AdminScreen = () => {
@@ -46,6 +47,10 @@ const AdminScreen = () => {
               </TabPanel>
               <TabPanel>
                 <BlogsTab />
+              </TabPanel>
+              <TabPanel>Hi</TabPanel>
+              <TabPanel>
+                <SubscribersTab />
               </TabPanel>
             </TabPanels>
           </Tabs>

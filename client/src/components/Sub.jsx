@@ -1,68 +1,92 @@
-// src/components/SubscriptionCard.js
-import { Button, Container, Input, Stack, useToast } from "@chakra-ui/react";
-import React, { useState } from "react";
+import {
+  Alert,
+  AlertDescription,
+  AlertIcon,
+  AlertTitle,
+  Button,
+  Container,
+  FormControl,
+  Stack,
+  useToast,
+} from "@chakra-ui/react";
+import { Formik } from "formik";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import * as Yup from "yup";
+import { subscribe } from "../redux/actions/subsActions";
+import TextField from "./Textfield";
 
 function SubscriptionCard() {
-  const [email, setEmail] = useState("");
+  const dispatch = useDispatch();
   const toast = useToast();
 
-  const handleSubscribe = async () => {
-    try {
-      const response = await fetch("/api/subscribe", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email }),
-      });
+  const sub = useSelector((state) => state.subs);
+  const { loading, error, subsInfo } = sub;
 
-      if (response.status === 201) {
-        // Subscription successful
-        console.log("Subscription successful");
-        setEmail("");
-        toast({
-          description: "Subscription Successful!",
-          status: "success",
-          isClosable: true,
-        });
-      } else {
-        // Subscription failed
-        console.error("Subscription failed");
-        toast({
-          description: "Subscribtion failed!",
-          status: "failed",
-          isClosable: true,
-        });
-      }
-    } catch (error) {
-      console.error("Error:", error);
+  useEffect(() => {
+    if (subsInfo) {
       toast({
-        description: "Subscribtion failed! Enter a Valid email.",
+        description: "Subscription successful.",
         status: "success",
         isClosable: true,
       });
     }
-  };
+  }, [subsInfo, error, toast]);
 
   return (
-    <Container p={4} borderWidth="1px" borderRadius="md">
-      <Stack>
-        <Stack>
-          <Input
-            type="email"
-            placeholder="Enter your email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            mb={2}
-          />
-        </Stack>
-        <Stack>
-          <Button colorScheme="red" onClick={handleSubscribe}>
-            Subscribe
-          </Button>
-        </Stack>
-      </Stack>
-    </Container>
+    <Formik
+      initialValues={{ email: "" }}
+      validationSchema={Yup.object({
+        email: Yup.string()
+          .email("Invalid email.")
+          .required("An email is required."),
+      })}
+      onSubmit={(values) => {
+        dispatch(subscribe(values.email));
+      }}
+    >
+      {(formik) => (
+        <Container p={4} borderWidth="1px" borderRadius="md">
+          <Stack>
+            <Stack as="form" onSubmit={formik.handleSubmit}>
+              {error && (
+                <Alert
+                  status="error"
+                  flexDirection="column"
+                  alignItems="center"
+                  justifyContent="center"
+                  textAlign="center"
+                >
+                  <AlertIcon />
+                  <AlertTitle>Upps!</AlertTitle>
+                  <AlertDescription>{error}</AlertDescription>
+                </Alert>
+              )}
+              <Stack>
+                <FormControl>
+                  <TextField
+                    type="text"
+                    name="email"
+                    placeholder="you@example.com"
+                    label="Email"
+                  />
+                </FormControl>
+              </Stack>
+              <Stack>
+                <Button
+                  colorScheme="red"
+                  fontSize="md"
+                  isLoading={loading}
+                  type="submit"
+                >
+                  Subscribe
+                </Button>
+              </Stack>
+            </Stack>
+          </Stack>
+        </Container>
+      )}
+    </Formik>
   );
 }
 
